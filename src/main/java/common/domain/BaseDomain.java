@@ -1,5 +1,8 @@
 package common.domain;
 
+/**
+ * Common domain class.
+ */
 public abstract class BaseDomain {
     protected Long id;
 

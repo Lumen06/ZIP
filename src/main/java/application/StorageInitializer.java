@@ -1,6 +1,7 @@
 package application;
 
 import backup.domain.Backup;
+import org.apache.log4j.Logger;
 import user.Activity;
 import user.domain.User;
 
@@ -8,9 +9,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+* Storage initialization class.
+*/
+
 import static storage.Storage.listOfUsers;
 
 public class StorageInitializer {
+
+    private static final Logger logger = Logger.getLogger(StorageInitializer.class.getName());
+
 
     public StorageInitializer() {
         storageInitialize();
@@ -33,57 +41,62 @@ public class StorageInitializer {
         return users;
     }
 
+    /**
+     * Method initializing list of user's backups.
+     *
+     * @param compressionFactor - a factor that indicates how much the file should be compressed/
+     * @return list of user's backups.
+     */
+
     private List<Backup> backupInitialize(int compressionFactor)  {
 
         List<Backup> userBackups = new ArrayList<>();
         try {
-            ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-
             switch (compressionFactor) {
 
                 case 0: {
-                    userBackups.add(new Backup(1L, new File(classLoader.getResource("non_compressible/1.dat").getFile())));
-                    userBackups.add(new Backup(2L, new File(classLoader.getResource("non_compressible/2.dat").getFile())));
-                    userBackups.add(new Backup(3L, new File(classLoader.getResource("non_compressible/1.dat").getFile())));
+                    addBackupToTheList(userBackups, "non_compressible" );
                     break;
                 }
                 case 5: {
-                    userBackups.add(new Backup(1L, new File(classLoader.getResource("x5/1.dat").getFile())));
-                    userBackups.add(new Backup(2L, new File(classLoader.getResource("x5/2.dat").getFile())));
-                    userBackups.add(new Backup(3L, new File(classLoader.getResource("x5/3.dat").getFile())));
+                    addBackupToTheList(userBackups, "x5");
                     break;
                 }
                 case 10: {
-                    userBackups.add(new Backup(1L, new File(classLoader.getResource("x10/1.dat").getFile())));
-                    userBackups.add(new Backup(2L, new File(classLoader.getResource("x10/2.dat").getFile())));
-                    userBackups.add(new Backup(3L, new File(classLoader.getResource("x10/3.dat").getFile())));
+                    addBackupToTheList(userBackups, "x10");
                     break;
                 }
                 case 20: {
-                    userBackups.add(new Backup(1L, new File(classLoader.getResource("x20/1.dat").getFile())));
-                    userBackups.add(new Backup(2L, new File(classLoader.getResource("x20/2.dat").getFile())));
-                    userBackups.add(new Backup(3L, new File(classLoader.getResource("x20/3.dat").getFile())));
+                    addBackupToTheList(userBackups, "x20");
                     break;
                 }
                 case 40: {
-                    userBackups.add(new Backup(1L, new File(classLoader.getResource("x40/1.dat").getFile())));
-                    userBackups.add(new Backup(2L, new File(classLoader.getResource("x40/2.dat").getFile())));
-                    userBackups.add(new Backup(3L, new File(classLoader.getResource("x40/3.dat").getFile())));
+                    addBackupToTheList(userBackups, "x40");
                     break;
                 }
                 case 100: {
-                    userBackups.add(new Backup(1L, new File(classLoader.getResource("x100/1.dat").getFile())));
-                    userBackups.add(new Backup(2L, new File(classLoader.getResource("x100/2.dat").getFile())));
-                    userBackups.add(new Backup(3L, new File(classLoader.getResource("x100/3.dat").getFile())));
+                    addBackupToTheList(userBackups, "x100");
                     break;
                 }
 
             }
         }   catch (Exception e) {
-            System.out.println("Something wrong with backup initializing");
+            logger.error("Something wrong with backup initializing");
             e.printStackTrace();
         }
 
         return userBackups;
+    }
+
+    private void addBackupToTheList(List<Backup> backupList, String directoryName) {
+
+        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+
+        for (long i = 1; i<4; i++) {
+            backupList.add(new Backup(i, new File(classLoader.getResource(
+                    directoryName + "/" + i + ".dat").getFile()))); //reading a file from resources 1 to 3
+
+        }
+
     }
 }

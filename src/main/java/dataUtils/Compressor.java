@@ -6,9 +6,11 @@ import java.net.URI;
 import java.nio.file.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
-
+/**
+ * Utility class that compress user data.
+ */
 public final class Compressor {
 
     private static final Logger logger = Logger.getLogger(Compressor.class.getName());

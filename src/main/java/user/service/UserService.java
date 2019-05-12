@@ -6,6 +6,10 @@ import user.domain.User;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Class contains basic operations of working with backups.
+ */
+
 public class UserService extends UserRepo {
 
     private UserRepo userRepo;
@@ -20,8 +24,8 @@ public class UserService extends UserRepo {
     }
 
     @Override
-    public Optional<User> findUserById(Long id) {
-        return userRepo.findUserById(id);
+    public Optional<User> findById(Long id) {
+        return userRepo.findById(id);
     }
 
     @Override
@@ -36,6 +40,6 @@ public class UserService extends UserRepo {
 
     @Override
     public void deleteUserById(Long id) {
-        super.deleteUserById(id);
+        userRepo.deleteUserById(id);
     }
 }

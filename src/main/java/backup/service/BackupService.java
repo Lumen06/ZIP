@@ -3,6 +3,11 @@ package backup.service;
 import backup.repo.BackupRepo;
 import user.domain.User;
 
+/**
+ * A service that allows you to compress user backups.
+ * Also contains basic operations of working with backups.
+ */
+
 public class BackupService extends BackupRepo {
 
     private BackupRepo backupRepo;
@@ -18,7 +23,7 @@ public class BackupService extends BackupRepo {
 
     @Override
     public void cleanCompressedBackupsByUser(User user) {
-        if (user!= null) {
+        if (user != null) {
             backupRepo.cleanCompressedBackupsByUser(user);
         }
     }

@@ -10,6 +10,10 @@ import java.util.Map;
 import static storage.Storage.compressedBackups;
 import static storage.Storage.listOfUsers;
 
+/**
+ * Class, containing basic operations with backup entities contained in the repository.
+ */
+
 public class BackupRepo {
 
     public void compressBackup() {

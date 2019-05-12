@@ -8,6 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * Storage of entities.
+ */
+
 public class Storage {
 
     public static List<User> listOfUsers = new ArrayList<>();

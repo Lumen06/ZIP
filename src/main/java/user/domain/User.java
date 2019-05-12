@@ -5,6 +5,11 @@ import common.domain.BaseDomain;
 import user.Activity;
 
 import java.util.List;
+import java.util.Objects;
+
+/**
+ * User domain class.
+ */
 
 public class User extends BaseDomain {
 
@@ -12,11 +17,6 @@ public class User extends BaseDomain {
     private Activity activity;
     private List<Backup> listOfBackups;
 
-    public User(String name, Long id, Activity activity) {
-        this.name = name;
-        this.id = id;
-        this.activity = activity;
-    }
 
     public User(String name, Long id, Activity activity, List<Backup> listOfBackups) {
         this.id = id;
@@ -54,5 +54,21 @@ public class User extends BaseDomain {
         return "User{" +
                 "name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(name, user.name) &&
+                activity == user.activity &&
+                Objects.equals(listOfBackups, user.listOfBackups);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(name, activity, listOfBackups);
     }
 }
